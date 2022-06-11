@@ -13,8 +13,8 @@ function Sidebar(props)
             if(temp.editMode === false)
             {
                 return (
-                    <div className='rowFlex' key={counter}>
-                        <h1>{temp.listTitle}</h1>
+                    <div className='rowFlex list' key={counter}>
+                        <h1 onClick={()=>props.changeCurrent(temp.id)}>{temp.listTitle}</h1>
                         <button onClick={()=> props.deleteList(temp.id)}>Delete List</button>
                         <button onClick={()=> props.editList(temp.id)}>Edit</button>
                     </div>
@@ -31,7 +31,7 @@ function Sidebar(props)
         })
     }
     return (
-        <div>
+        <div id='sideBar' className='colFlex'>
             {listMap}
             <input id='listTitle' type="text" value={props.listTitle} onChange={props.changeInput} name="listTitle" />
             <button onClick={props.addNewList}>Add to List</button>

@@ -18,3 +18,17 @@
     justify-content: center;
     align-items: center;
 }
+
+#sideBar
+{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+}
+
+
+.list:hover
+{
+    cursor: pointer;
+}

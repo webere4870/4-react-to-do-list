@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
+import './stylesheet.css'
 
 function App()
 {
@@ -14,6 +15,7 @@ function App()
   {
     return list ? list[0] : []
   })
+
 
   let [date, setDate] = React.useState(()=>
   {
@@ -97,7 +99,6 @@ function App()
 
   function finalChangeState(id)
   {
-    console.log("here")
     setList((prev)=>
     {
       let newArr = []
@@ -106,12 +107,35 @@ function App()
     })
   }
 
+  function changeCurrent(id)
+  {
+    let current = {}
+    setList((prev)=>
+    {
+      let newArr = []
+      for(let temp of prev)
+      {
+        if(temp.id==id)
+        {
+          current = temp
+        }
+        temp.id == id ? newArr.unshift(temp) : newArr.push(temp)
+      }
+      return newArr
+    })
+    setCurrentList((prev)=>
+    {
+      return current
+    })
+  }
+
+  console.log(currentList)
 
   return (
     <div>
       <h1>ReactJS</h1>
       <Navbar date={date} />
-      <Sidebar listTitle={listTitle} changeInput={changeInput} addNewList={addNewList} list={list} deleteList={deleteList} changeListTitleState={changeListTitleState} editList={editList} finalChangeState={finalChangeState}/>
+      <Sidebar listTitle={listTitle} changeInput={changeInput} addNewList={addNewList} list={list} deleteList={deleteList} changeListTitleState={changeListTitleState} editList={editList} finalChangeState={finalChangeState} changeCurrent={changeCurrent}/>
     </div>
   )
 }
