@@ -1,6 +1,7 @@
 import React from 'react'
 import Navbar from './components/Navbar'
 import Sidebar from './components/Sidebar'
+import ToDoList from './components/ToDoList'
 import './stylesheet.css'
 
 function App()
@@ -21,6 +22,12 @@ function App()
   })
 
   let [listTitle, setListTitle] = React.useState(()=>
+  {
+    return ""
+  })
+
+
+  let [addReminder, setAddReminder] = React.useState(()=>
   {
     return ""
   })
@@ -93,7 +100,8 @@ function App()
 
   function changeInput(event)
   {
-    event.target.name == "listTitle" ? setListTitle(event.target.value) : setListTitle(null) // Change
+    event.target.name == "listTitle" ? setListTitle(event.target.value) : setListTitle("") // Change 
+    event.target.name == "newReminder" ? setAddReminder(event.target.value) : setAddReminder("")
   }
 
 
@@ -136,11 +144,42 @@ function App()
     
   }
 
+  function createReminder()
+  {
+    setList((prev)=>
+    {
+      let newArr =[]
+      for(let counter = 0; counter < prev.length; counter++)
+      {
+        if(prev[counter].id == currentList.id)
+        {
+          let subArr = [{id: prev.length, reminder: addReminder, editMode: false}, ...prev[counter].listItems]
+          let fullItem = {...prev[counter], listItems: subArr}
+          newArr.push(fullItem)
+        }
+        else{
+          newArr.push(prev[counter])
+        }
+      }
+      return newArr
+    })
+  }
+
+  function changeReminder(id)
+  {
+    setList((prev)=>
+    {
+      let newArr = []
+      return newArr
+    })
+  }
+
   return (
     <div>
       <h1>ReactJS</h1>
       <Navbar date={date} />
       <Sidebar listTitle={listTitle} changeInput={changeInput} addNewList={addNewList} list={list} deleteList={deleteList} changeListTitleState={changeListTitleState} editList={editList} finalChangeState={finalChangeState} changeCurrent={changeCurrent}/>
+      {currentList && <ToDoList currentList={currentList} changeInput={changeInput} currentReminder={addReminder} addReminder={createReminder}/>}
     </div>
   )
 }
