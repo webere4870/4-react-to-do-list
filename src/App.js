@@ -11,10 +11,7 @@ function App()
     let data = JSON.parse(string)
     return data
   })
-  let [currentList, setCurrentList] = React.useState(()=>
-  {
-    return list ? list[0] : []
-  })
+  let [currentList, setCurrentList] = React.useState(list ? list[0] : {})
 
 
   let [date, setDate] = React.useState(()=>
@@ -27,6 +24,18 @@ function App()
   {
     return ""
   })
+
+
+  React.useEffect(()=>
+  {
+    if(list)
+    {
+      setCurrentList((prev)=>
+      {
+        return list[0]
+      })
+    }
+  }, [list])
 
   
   setInterval(()=>
@@ -59,6 +68,7 @@ function App()
       localStorage.setItem("ToDoList", JSON.stringify(newArr))
       return newArr
     })
+    
   }
 
   function editList(id)
@@ -123,13 +133,8 @@ function App()
       }
       return newArr
     })
-    setCurrentList((prev)=>
-    {
-      return current
-    })
+    
   }
-
-  console.log(currentList)
 
   return (
     <div>
