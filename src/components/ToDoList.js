@@ -8,16 +8,16 @@ function ToDoList(props)
         counter ++
         if(temp.editMode==false)
         {
-            return <div className='toDoRow' key={counter}>
+            return <div className='toDoRow' key={temp.id}>
                 <h1>{temp.reminder}</h1>
                 <button onClick={()=> props.changeReminder(temp.id)}>Edit</button>
                 <button>Delete Uniquer</button>
             </div>
         }
         else{
-            return <div className='toDoRow' key={counter}>
-                <input type="text" />
-                <button>Submit</button>
+            return <div className='toDoRow' key={temp.id}>
+                <input type="text" name={`reminderInput${counter}`} value={temp.reminder} onChange={(evt)=>props.changeReminderState(evt, temp.id)}/>
+                <button onClick={()=> props.submitReminderChange(temp.id)}>Submit</button>
             </div>
         }
     })
